@@ -16,7 +16,7 @@ grails.project.dependency.resolution = {
 	}
 
 	dependencies {
-		String springSecurityVersion = '3.2.3.RELEASE'
+		String springSecurityVersion = '3.2.6.RELEASE'
 
 		compile "org.springframework.security:spring-security-ldap:$springSecurityVersion", {
 			excludes 'apacheds-core', 'apacheds-core-entry', 'apacheds-protocol-ldap', 'apacheds-protocol-shared',
