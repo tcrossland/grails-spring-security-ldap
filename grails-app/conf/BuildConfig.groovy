@@ -16,7 +16,7 @@ grails.project.dependency.resolution = {
 	}
 
 	dependencies {
-		String springSecurityVersion = '3.2.6.RELEASE'
+		String springSecurityVersion = '3.2.7.RELEASE'
 
 		compile "org.springframework.security:spring-security-ldap:$springSecurityVersion", {
 			excludes 'apacheds-core', 'apacheds-core-entry', 'apacheds-protocol-ldap', 'apacheds-protocol-shared',
@@ -24,13 +24,13 @@ grails.project.dependency.resolution = {
 			         'logback-classic', 'mockito-core', 'shared-ldap', 'slf4j-api', 'spring-beans', 'spring-context',
 			         'spring-core', 'spring-ldap-core', 'spring-security-core', 'spring-test', 'spring-tx'
 		}
-		runtime('org.springframework.ldap:spring-ldap-core:2.0.2.RELEASE') {
+		runtime('org.springframework.ldap:spring-ldap-core:2.0.3.RELEASE') {
 			excludes 'commons-lang', 'commons-logging', 'easymock', 'gsbase', 'junit', 'spring-beans', 'spring-core', 'spring-tx'
 		}
 	}
 
 	plugins {
-		compile ':spring-security-core:2.0.1-SNAPSHOT'
+		compile ':spring-security-core:2.0-SNAPSHOT'
 
 		compile(":hibernate4:4.3.8.1") {
 			export = false
