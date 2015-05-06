@@ -30,7 +30,7 @@ grails.project.dependency.resolution = {
 	}
 
 	plugins {
-		compile ':spring-security-core:2.0-SNAPSHOT'
+		compile ':spring-security-core:2.0.1-SNAPSHOT'
 
 		compile(":hibernate4:4.3.8.1") {
 			export = false
