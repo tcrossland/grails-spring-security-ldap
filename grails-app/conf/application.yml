@@ -1,0 +1,176 @@
+---
+grails:
+    profile: web-plugin
+    codegen:
+        defaultPackage: plugin.one
+    doc
+        authors: 'Burt Beckwith'
+        license: 'Apache License 2.0'
+        title: 'Spring Security LDAP Plugin'
+info:
+    app:
+        name: '@info.app.name@'
+        version: '@info.app.version@'
+        grailsVersion: '@info.app.grailsVersion@'
+spring:
+    groovy:
+        template:
+            check-template-location: false
+
+---
+grails:
+    mime:
+        disable:
+            accept:
+                header:
+                    userAgents:
+                        - Gecko
+                        - WebKit
+                        - Presto
+                        - Trident
+        types:
+            all: '*/*'
+            atom: application/atom+xml
+            css: text/css
+            csv: text/csv
+            form: application/x-www-form-urlencoded
+            html: 
+              - text/html
+              - application/xhtml+xml
+            js: text/javascript
+            json:
+              - application/json
+              - text/json
+            multipartForm: multipart/form-data
+            rss: application/rss+xml
+            text: text/plain
+            hal: 
+              - application/hal+json
+              - application/hal+xml
+            xml:
+              - text/xml
+              - application/xml
+    urlmapping:
+        cache:
+            maxsize: 1000
+    controllers:
+        defaultScope: singleton
+    converters:
+        encoding: UTF-8
+    hibernate:
+        cache:
+            queries: false
+            second_level_cache: false
+            provider_class: 'net.sf.ehcache.hibernate.EhCacheProvider'
+    views:
+        default:
+            codec: html
+        gsp:
+            encoding: UTF-8
+            htmlcodec: xml
+            codecs:
+                expression: html
+                scriptlets: html
+                taglib: none
+                staticparts: none
+
+---
+dataSource:
+    pooled: true
+    jmxExport: true
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+
+environments:
+    development:
+        dataSource:
+            dbCreate: update
+            url: jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+    test:
+        dataSource:
+            dbCreate: update
+            url: jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+    production:
+        dataSource:
+            dbCreate: update
+            url: jdbc:h2:prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+            properties:
+                jmxEnabled: true
+                initialSize: 5
+                maxActive: 50
+                minIdle: 5
+                maxIdle: 25
+                maxWait: 10000
+                maxAge: 600000
+                timeBetweenEvictionRunsMillis: 5000
+                minEvictableIdleTimeMillis: 60000
+                validationQuery: SELECT 1
+                validationQueryTimeout: 3
+                validationInterval: 15000
+                testOnBorrow: true
+                testWhileIdle: true
+                testOnReturn: false
+                jdbcInterceptors: ConnectionState
+                defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
+
+---
+security:
+    ldap:
+        active = true
+        search:
+            searchSubtree = true
+            base = '' # e.g. 'dc=example,dc=com', 'ou=users,dc=example,dc=com'
+            filter = '(uid={0})' #, '(mailNickname={0})'
+            derefLink = false
+            timeLimit = 0 # unlimited
+            attributesToReturn = null # all
+        authenticator:
+            useBind = true
+            attributesToReturn = null # all
+            dnPatterns = null # e.g. ["cn={0},ou=people"]
+            passwordAttributeName = 'userPassword' # when not using bind
+        mapper:
+            convertToUpperCase = true
+            passwordAttributeName = 'userPassword'
+            userDetailsClass = null # can be 'person' or 'inetOrgPerson'
+            roleAttributes = null
+        auth:
+            hideUserNotFoundExceptions = true
+            useAuthPassword = true
+        context:
+            managerDn = 'cn=admin,dc=example,dc=com'
+            managerPassword = 'secret'
+            server = 'ldap://localhost:389' # 'ldap://ad.example.com', 'ldap://monkeymachine:389/dc=acegisecurity,dc=org'
+            contextFactoryClassName = 'com.sun.jndi.ldap.LdapCtxFactory'
+            dirObjectFactoryClassName = 'org.springframework.ldap.core.support.DefaultDirObjectFactory'
+            baseEnvironmentProperties = [:]
+            cacheEnvironmentProperties = true
+            anonymousReadOnly = false
+            referral = null
+        authorities:
+            retrieveGroupRoles = true
+            retrieveDatabaseRoles = false
+            groupRoleAttribute = 'cn'
+            groupSearchFilter = 'uniquemember={0}'
+            searchSubtree = true
+            groupSearchBase = 'ou=groups,dc=example,dc=com'
+            ignorePartialResultException = false
+            defaultRole = null
+            prefix = 'ROLE_'
+            clean:
+                prefix = null
+                suffix = null
+                dashes = false
+                uppercase = false
+        useRememberMe = false
+        rememberMe:
+            detailsManager:
+                passwordAttributeName = 'userPassword'
+                groupSearchBase = 'ou=groups,dc=example,dc=com'
+                groupRoleAttributeName = 'cn'
+                attributesToRetrieve = null # all
+                groupMemberAttributeName = 'uniquemember'
+            usernameMapper:
+                userDnBase = null # must be set, e.g. 'dc=example,dc=com', 'ou=users,dc=example,dc=com'
+                usernameAttribute = null # must be set, e.g. 'cn'
