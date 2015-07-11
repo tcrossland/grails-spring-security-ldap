@@ -8,3 +8,5 @@ grails-spring-security-ldap-*.zip.sha1
 /web-app
 .idea/
 *.iml
+/build/
+/bin/
