@@ -1,17 +1,21 @@
 package grails.plugin.springsecurity.ldap.userdetails
 
-import grails.test.GrailsUnitTestCase
+import grails.test.mixin.TestMixin
+import grails.test.mixin.support.GrailsUnitTestMixin
 
+import org.junit.Before;
+import org.junit.Test;
 import org.springframework.ldap.core.support.LdapContextSource
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 
-class GrailsLdapAuthoritiesPopulatorTests extends GrailsUnitTestCase {
+@TestMixin([GrailsUnitTestMixin])
+class GrailsLdapAuthoritiesPopulatorTests {
 
 	def contextSource
 	def rolesToTest
 
-	protected void setUp() {
-		super.setUp()
+  @Before
+	public void setUp() {
 
 		contextSource = new LdapContextSource()
 
@@ -76,7 +80,8 @@ class GrailsLdapAuthoritiesPopulatorTests extends GrailsUnitTestCase {
 	/**
 	 * This one test should cover everything added in the cleanRole() function
 	 */
-	void testMyRoles() {
+  @Test
+	public void testMyRoles() {
 
 		def grailsLdapAuthoritiesPopulator = new GrailsLdapAuthoritiesPopulator(contextSource, '')
 
@@ -106,7 +111,8 @@ class GrailsLdapAuthoritiesPopulatorTests extends GrailsUnitTestCase {
 	/**
 	 * This one test should cover everything added in the cleanRole() function
 	 */
-	void testGetGroupMembershipRoles() {
+  @Test
+	public void testGetGroupMembershipRoles() {
 
 		def testRole = new SimpleGrantedAuthority("ROLE_Test-Pre Sys-AdminTest-Pre-Test-Post-Group Test-Post")
 

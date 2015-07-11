@@ -70,7 +70,7 @@ dependencies {
     
     
     //-- Copied over build-configurations
-    compile('org.springframework.security:spring-security-ldap:$springSecurityVersion') {
+    compile("org.springframework.security:spring-security-ldap:$springSecurityVersion") {
       exclude module:'apacheds-core'
       exclude module:'apacheds-core-entry'
       exclude module:'apacheds-protocol-ldap'
@@ -93,7 +93,7 @@ dependencies {
       exclude module:'spring-test'
       exclude module:'spring-tx'
     }
-    runtime('org.springframework.ldap:spring-ldap-core:2.0.3.RELEASE') {
+    compile('org.springframework.ldap:spring-ldap-core:2.0.3.RELEASE') {
       exclude module:'commons-lang'
       exclude module:'commons-logging'
       exclude module:'easymock'
