@@ -8,6 +8,9 @@ grails.project.dependency.resolution = {
 	log 'warn'
 
 	repositories {
+		mavenRepo("https://projects.bluetab.net/artifactory/repo") {
+			updatePolicy "interval:10"
+		}
 		mavenLocal()
 		grailsCentral()
 		mavenCentral()
