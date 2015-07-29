@@ -1,18 +1,16 @@
 grails.project.work.dir = 'target'
 grails.project.docs.output.dir = 'docs/manual' // for the gh-pages branch
 
-grails.project.dependency.resolver = "maven"
+grails.project.dependency.resolver = 'maven'
 grails.project.dependency.resolution = {
 
 	inherits 'global'
 	log 'warn'
 
 	repositories {
-		grailsCentral()
 		mavenLocal()
+		grailsCentral()
 		mavenCentral()
-
-		mavenRepo 'http://repo.spring.io/milestone' // TODO remove
 	}
 
 	dependencies {
@@ -30,7 +28,7 @@ grails.project.dependency.resolution = {
 	}
 
 	plugins {
-		compile ':spring-security-core:2.0-SNAPSHOT'
+		compile ':spring-security-core:2.0-RC5'
 
 		compile(":hibernate:3.6.10.17") {
 			export = false

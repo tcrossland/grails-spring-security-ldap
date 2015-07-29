@@ -1,4 +1,4 @@
-/* Copyright 2006-2013 SpringSource.
+/* Copyright 2006-2015 SpringSource.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,13 +42,11 @@ class SpringSecurityLdapGrailsPlugin {
 		'src/docs/**'
 	]
 	List loadAfter = ['springSecurityCore']
-
 	String author = 'Burt Beckwith'
 	String authorEmail = 'burt@burtbeckwith.com'
 	String title = 'LDAP authentication support for the Spring Security plugin.'
 	String description = 'LDAP authentication support for the Spring Security plugin.'
 	String documentation = 'http://grails-plugins.github.io/grails-spring-security-ldap/'
-
 	String license = 'APACHE'
 	def organization = [name: 'SpringSource', url: 'http://www.springsource.org/']
 	def issueManagement = [system: 'JIRA', url: 'http://jira.grails.org/browse/GPSPRINGSECURITYLDAP']
@@ -98,8 +96,8 @@ class SpringSecurityLdapGrailsPlugin {
 		}
 
 		ldapAuthenticationSource(SimpleAuthenticationSource) {
-			userDn = conf.ldap.context.managerDn // 'cn=admin,dc=example,dc=com'
-			password = conf.ldap.context.managerPassword // 'secret'
+			principal = conf.ldap.context.managerDn // 'cn=admin,dc=example,dc=com'
+			credentials = conf.ldap.context.managerPassword // 'secret'
 		}
 
 		String[] searchAttributesToReturn = toStringArray(conf.ldap.search.attributesToReturn) // null - all

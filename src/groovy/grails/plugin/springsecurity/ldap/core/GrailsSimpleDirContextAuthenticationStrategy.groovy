@@ -1,4 +1,4 @@
-/* Copyright 2006-2013 SpringSource.
+/* Copyright 2006-2015 SpringSource.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,14 +12,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package grails.plugin.springsecurity.ldap.core;
+package grails.plugin.springsecurity.ldap.core
 
-import java.util.Hashtable;
+import groovy.transform.CompileStatic
+import groovy.util.logging.Slf4j
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.ldap.core.support.AbstractContextSource;
-import org.springframework.ldap.core.support.SimpleDirContextAuthenticationStrategy;
+import org.springframework.ldap.core.support.AbstractContextSource
+import org.springframework.ldap.core.support.SimpleDirContextAuthenticationStrategy
 
 /**
  * Based on the anonymous inner class in DefaultSpringSecurityContextSource.
@@ -27,27 +26,19 @@ import org.springframework.ldap.core.support.SimpleDirContextAuthenticationStrat
  * @author Luke Taylor
  * @author <a href='mailto:burt@burtbeckwith.com'>Burt Beckwith</a>
  */
-public class GrailsSimpleDirContextAuthenticationStrategy extends SimpleDirContextAuthenticationStrategy {
+@CompileStatic
+@Slf4j
+class GrailsSimpleDirContextAuthenticationStrategy extends SimpleDirContextAuthenticationStrategy {
 
-	protected final Logger log = LoggerFactory.getLogger(getClass());
-
-	protected String userDn;
+	/** Dependency injection for the userDn. */
+	String userDn
 
 	@Override
 	public void setupEnvironment(Hashtable<String, Object> env, String dn, String password) {
 		super.setupEnvironment(env, dn, password);
 		// Remove the pooling flag unless we are authenticating as the 'manager' user.
-		if (!userDn.equals(dn) && env.containsKey(AbstractContextSource.SUN_LDAP_POOLING_FLAG)) {
-			log.debug("Removing pooling flag for user {0}", dn);
-			env.remove(AbstractContextSource.SUN_LDAP_POOLING_FLAG);
+		if (userDn != dn && env.remove(AbstractContextSource.SUN_LDAP_POOLING_FLAG)) {
+			log.debug 'Removed pooling flag for user {0}', dn
 		}
-	}
-
-	/**
-	 * Dependency injection for the userDn.
-	 * @param dn the userDn
-	 */
-	public void setUserDn(String dn) {
-		userDn = dn;
 	}
 }
