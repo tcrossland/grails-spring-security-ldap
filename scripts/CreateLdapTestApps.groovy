@@ -1,4 +1,4 @@
-/* Copyright 2006-2013 SpringSource.
+/* Copyright 2006-2015 SpringSource.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -93,9 +93,6 @@ private void installPlugins() {
 	contents = contents.replace('grails.project.test.reports.dir = "target/test-reports"', '')
 
 	contents = contents.replace('//mavenLocal()', 'mavenLocal()')
-	contents = contents.replace('repositories {', '''repositories {
-mavenRepo 'http://repo.spring.io/milestone' // TODO remove
-''')
 
 	contents = contents.replace('grails.project.fork', 'grails.project.forkDISABLED')
 
